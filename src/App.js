@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { publicRoutes } from './routes';
+import { DefaultLayout } from '~/components/Layout';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Routes>
+                {publicRoutes.map((route, index) => {
+                    const Page = route.component;
+                    // Determine the layout to use
+                    let Layout = DefaultLayout; // Default layout
+                    if (route.layout === null || route.layout === undefined) {
+                        Layout = Fragment; // No layout, use Fragment
+                    } else if (route.layout) {
+                        Layout = route.layout; // Custom layout
+                    }
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                            }
+                        />
+                    );
+                })}
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
