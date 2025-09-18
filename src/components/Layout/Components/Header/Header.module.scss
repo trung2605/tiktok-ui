@@ -1,0 +1,13 @@
+.wrapper {
+    width: 100%;
+    height: var(--default-layout-header-height);
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #eee;
+    justify-content: center;
+}
+
+.inner {
+    width: var(--default-layout-width);
+    height: 100%;
+    align-items: center;
+}
